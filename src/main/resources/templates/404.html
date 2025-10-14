@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Page Not Found</title>
+  <link rel="icon" href="/favicon.ico" />
+  <style>
+    /* === GLOBAL RESET === */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      font-family: 'Poppins', 'Inter', sans-serif;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* === BACKGROUND ELEMENTS === */
+    canvas#stars {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+    }
+
+    .aurora {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 50%, rgba(0,255,255,0.25), transparent 60%),
+                  radial-gradient(circle at 70% 80%, rgba(0,128,255,0.25), transparent 60%),
+                  radial-gradient(circle at 30% 20%, rgba(255,0,255,0.25), transparent 60%);
+      filter: blur(100px);
+      animation: auroraShift 15s ease-in-out infinite alternate;
+      z-index: 1;
+      opacity: 0.75;
+    }
+
+    /* === CONTENT LAYOUT === */
+    .content {
+      position: relative;
+      text-align: center;
+      z-index: 2;
+      width: 90%;
+      max-width: 900px;
+      animation: fadeIn 2.2s ease forwards;
+    }
+
+    /* === HEADINGS === */
+    h1 {
+      font-size: 7em;
+      letter-spacing: 1.2px;
+      font-weight: 800;
+      margin-bottom: 0.2em;
+      background: linear-gradient(90deg, #ffffff, #d4af37);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 25px rgba(255, 215, 160, 0.15);
+    }
+
+    .slogan {
+      font-size: 1.5em;
+      line-height: 1.6em;
+      color: #eaeaea;
+      font-weight: 400;
+      max-width: 720px;
+      margin: 0 auto 2em;
+      font-style: italic;
+      text-shadow: 0 0 15px rgba(255,255,255,0.1);
+    }
+
+    .cta-button {
+      background: linear-gradient(90deg, #d4af37, #ffcc70);
+      border: none;
+      color: #111;
+      padding: 0.9em 2.5em;
+      font-size: 1.1em;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.35s ease;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+      backdrop-filter: blur(6px);
+      text-decoration: none;
+    }
+
+    .cta-button:hover {
+      transform: scale(1.06);
+      box-shadow: 0 0 30px rgba(255, 215, 0, 0.55);
+      letter-spacing: 0.5px;
+    }
+
+    /* === ANIMATIONS === */
+    @keyframes auroraShift {
+      0% {
+        background-position: 0% 50%;
+        filter: hue-rotate(0deg) blur(100px);
+      }
+      50% {
+        background-position: 50% 100%;
+        filter: hue-rotate(90deg) blur(110px);
+      }
+      100% {
+        background-position: 100% 50%;
+        filter: hue-rotate(180deg) blur(100px);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 768px) {
+      h1 { font-size: 4.5em; }
+      .slogan { font-size: 1.1em; }
+      .cta-button {
+        font-size: 1em;
+        padding: 0.8em 2em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="stars"></canvas>
+  <div class="aurora"></div>
+
+  <div class="content">
+    <h1>404</h1>
+    <p class="slogan">Oops... Sorry couldn’t find your page.</p>
+    <a class="cta-button" th:href="@{/}">Return to Home</a>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function createStars() {
+      const numStars = 250;
+      for (let i = 0; i < numStars; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          z: Math.random() * 3,
+          size: Math.random() * 1.2,
+          speed: 0.02 + Math.random() * 0.05
+        });
+      }
+    }
+
+    createStars();
+
+    function animateStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      stars.forEach(star => {
+        star.y += star.speed * star.z;
+        if (star.y > canvas.height) star.y = 0;
+
+        ctx.beginPath();
+        const brightness = 0.6 + 0.4 * Math.sin(Date.now() * 0.002 + star.x);
+        ctx.fillStyle = `rgba(255,255,255,${brightness})`;
+        ctx.arc(star.x, star.y, star.size * star.z, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      requestAnimationFrame(animateStars);
+    }
+
+    animateStars();
+  </script>
+</body>
+</html>
