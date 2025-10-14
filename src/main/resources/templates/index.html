@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>William Sanjaya — Indonesia</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <canvas id="stars"></canvas>
+    <div class="aurora"></div>
+
+    <div class="content">
+        <div class="intro fade-in">
+            <h1>William Sanjaya</h1>
+			<p class="role">RDC Software Engineer @ OCBC Indonesia</p>
+            <p class="slogan"><em><strong>
+                Building future-ready systems where engineering precision meets AI collaboration and entrepreneurial creativity.
+            </strong></em></p>
+        </div>
+
+		<button class="cta-button fade-in-late" id="discoverBtn">
+		    Discover More →
+		</button>
+    </div>
+
+    <script th:src="@{/js/animation.js}"></script>
+	<script>
+	document.addEventListener("DOMContentLoaded", () => {
+	  document.body.classList.add("loaded");
+
+	  const btn = document.getElementById("discoverBtn");
+	  const aurora = document.querySelector(".aurora");
+	  const content = document.querySelector(".content");
+
+	  btn.addEventListener("click", (e) => {
+	    e.preventDefault();
+
+	    // Add subtle content fade + aurora morph
+	    content.classList.add("fade-slide-up");
+	    aurora.classList.add("aurora-morph");
+
+	    // Navigate after animation
+	    setTimeout(() => {
+	      window.location.href = "/about";
+	    }, 950);
+	  });
+	});
+
+	// Handle browser back-cache (smooth re-entry)
+	window.addEventListener("pageshow", (event) => {
+	  if (event.persisted) {
+	    const aurora = document.querySelector(".aurora");
+	    const content = document.querySelector(".content");
+
+	    content.classList.remove("fade-slide-up");
+	    aurora.classList.remove("aurora-morph");
+
+	    requestAnimationFrame(() => {
+	      content.classList.add("fade-in");
+	    });
+	  }
+	});
+	</script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/about.css">
+
+</head>
+
+<body>
+  <!-- Background Animation -->
+  <canvas id="stars"></canvas>
+  <div class="aurora-overlay"></div>
+
+  <!-- Scrollable Content -->
+  <div class="scroll-container">
+	
+	<!-- PROFILE SECTION + SKILLS SECTION -->
+	<section class="profile-section">
+	  <img src="images/profile.png" alt="Profile Picture" class="profile-photo">
+	  <div class="profile-info">
+	    <h1>William <span>Sanjaya</span></h1>
+	    <p>
+			I’m an Indonesian Software Engineer with strong expertise in Java Spring Boot and Node.js, experienced in both legacy systems and modern cloud architectures. 
+			Skilled in full stack and building microservices with robust scalability and fault tolerance by leveraging Kafka, RabbitMQ, and Redis for high-performance, event-driven architectures.
+			My toolkit includes Oracle, PostgreSQL, and NoSQL databases, along with hands-on experience in the ELK Stack for observability and log analytics. Embrace and integrates AI to enhance code quality, efficiency, and review process within engineering workflows.
+			Fueled by coffee, I find joy in running, working out, playing guitar, and reading.
+	    </p>
+	  </div>
+	</section>
+
+    <!-- Employment History -->
+	<section>
+	  <h2>Employment History</h2>
+
+	  <th:block th:each="job : ${jobs}">
+	  	<div class="job-entry">
+	    	<h3 th:text="${job.period} + ' • ' + ${job.title} + ' — ' + ${job.company}"></h3>
+	        <p th:text="${job.description}"></p>
+	  	</div>
+	  </th:block>
+	</section>
+
+    <!-- Top 5 Projects -->
+    <section>
+      <h2>Top 5 Projects</h2>
+      <div class="project-grid">
+		<th:block th:each="proj : ${projects}">
+			<div class="project-card">
+		    	<h4 th:text="${proj.title}"></h4>
+		        <p th:text="${proj.description}"></p>
+		        
+		        <div class="project-links" th:if="${proj.link != null}">
+		          <a th:href="${proj.link}" target="_blank">View Source</a>
+		        </div>
+			</div>
+		</th:block>
+		
+		<!-- Portfolio Download Card -->
+		<div class="project-card portfolio-card">
+		  <h4>See All Projects</h4>
+		  <p>
+		    Explore my full project collection, including any Spring Boot projects, Node.JS and more.
+		  </p>
+		  <div class="project-links">
+			<a href="/download/project-pdf" class="btn-download">
+			  Download Full Project Lists
+			</a>
+		  </div>
+		</div>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section>
+      <h2>Education</h2>
+	  <th:block th:each="edu : ${educations}">
+	  	<p>
+			<strong th:text="${edu.degree}"></strong> —
+	        <span th:text="${edu.institution}"></span>
+	    </p>
+	    <ul>
+	        <li th:text="${edu.details}"></li>
+	    </ul>
+	  </th:block>
+    </section>
+
+    <!-- Contact -->
+    <section>
+      <h2>Contact</h2>
+      <p>Feel free to reach out for collaboration or tech discussions:</p>
+      <div class="contact-links">
+        <a href="mailto:williams.gouw@gmail.com">📧 williams.gouw@gmail.com</a>
+        <a href="https://github.com/williamSanjaya-UGM" target="_blank">💻 GitHub</a>
+        <a href="https://www.linkedin.com/in/william-sanjaya-345343197/" target="_blank">🔗 LinkedIn</a>
+      </div>
+    </section>
+  </div>
+
+  <script src="/js/animation.js"></script>
+</body>
+</html>

@@ -1,0 +1,373 @@
+/* === GLOBAL RESET FOR ABOUT PAGE === */
+html, body {
+  display: block !important;
+  align-items: unset !important;
+  justify-content: unset !important;
+  overflow: visible !important;
+  height: auto !important;
+  width: 100% !important;
+  background: transparent !important;
+  font-family: 'Poppins', 'Inter', sans-serif;
+  color: #fff;
+}
+
+/* Let about.html scroll naturally */
+body {
+  overflow-y: auto !important;
+  min-height: 100vh;
+}
+
+/* === BACKGROUND LAYERS === */
+canvas#stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  background: radial-gradient(ellipse at top, #1a237e 0%, #000 100%);
+}
+
+/* === AURORA BACKGROUND (MATCH INDEX STYLE) === */
+.aurora-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: radial-gradient(circle at 50% 50%, rgba(0,255,255,0.25), transparent 60%),
+              radial-gradient(circle at 70% 80%, rgba(0,128,255,0.25), transparent 60%),
+              radial-gradient(circle at 30% 20%, rgba(255,0,255,0.25), transparent 60%);
+  filter: blur(100px);
+  animation: auroraShift 15s ease-in-out infinite alternate;
+  opacity: 0.75;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+/* === Aurora Hue-Shift Animation (Elegant Morph) === */
+@keyframes auroraShift {
+  0% {
+    filter: hue-rotate(0deg) blur(100px);
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    filter: hue-rotate(90deg) blur(110px);
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+  100% {
+    filter: hue-rotate(180deg) blur(100px);
+    opacity: 0.75;
+    transform: scale(1);
+  }
+}
+
+/* === SCROLL CONTAINER === */
+.scroll-container {
+  position: relative;
+  z-index: 10;
+  height: 100vh;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  padding: 2rem 0;
+}
+
+/* === SECTION CARD LAYOUT === */
+section {
+  background: rgba(40, 40, 45, 0.6);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  border-radius: 18px;
+  padding: 2rem 3rem;
+  margin: 2rem auto;
+  max-width: 900px;
+  backdrop-filter: blur(15px);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* === HEADINGS === */
+section h2 {
+  text-align: center;
+  font-size: 1.9rem;
+  color: #fff;
+  position: relative;
+  margin-bottom: 2.5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+section h2::before,
+section h2::after {
+  content: "";
+  position: absolute;
+  bottom: -10px; /* place below the text */
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(to right, rgba(0,255,200,0.5), rgba(255,105,180,0.5));
+  border-radius: 2px;
+}
+
+section h2::before { left: calc(50% - 90px); }
+section h2::after { right: calc(50% - 90px); }
+
+/* === PROFILE SECTION === */
+.profile-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 2rem;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 25px;
+  backdrop-filter: blur(18px) saturate(160%);
+  padding: 2rem 2.5rem;
+  margin: 2rem auto;
+  max-width: 880px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.profile-section:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 45px rgba(0, 255, 200, 0.12);
+}
+
+.profile-photo {
+  flex-shrink: 0;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.25);
+  object-fit: cover;
+  box-shadow: 0 0 20px rgba(0,255,200,0.3);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.profile-photo:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 28px rgba(0,255,255,0.45);
+}
+
+.profile-info {
+  flex: 1;
+  min-width: 250px;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.profile-info h1 {
+  margin: 0;
+  color: #fff;
+  font-size: 1.65rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.profile-info h1 span { color: #ffd479; }
+
+.profile-info p {
+  color: #d8d8d8;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0.3rem 0;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* === EMPLOYMENT HISTORY === */
+.job-entry {
+  margin-bottom: 2rem;
+  padding: 1.2rem 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 14px;
+  transition: all 0.3s ease;
+}
+
+.job-entry:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 255, 200, 0.15);
+}
+
+.job-entry h3 {
+  color: #aef9e1;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 0.6rem;
+  text-shadow: 0 0 8px rgba(0, 255, 200, 0.25);
+}
+
+.job-entry p {
+  color: #d8d8d8;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* === PROJECT CARDS === */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.project-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 35px rgba(0, 255, 200, 0.25);
+}
+
+.project-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(120deg, rgba(0,255,255,0.08), rgba(255,105,180,0.08));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+
+.project-card:hover::before { opacity: 1; }
+
+.project-card h4 {
+  color: #fff;
+  font-size: 1.1rem;
+  margin-bottom: 0.6rem;
+  z-index: 1;
+  position: relative;
+}
+
+.project-card p {
+  color: #ccc;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  text-align: justify;
+  text-justify: inter-word;
+  z-index: 1;
+  position: relative;
+}
+
+/* === CONTACT LINKS === */
+.contact-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.contact-links a {
+  color: #00ffc8;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.contact-links a:hover { color: #ff69b4; }
+
+/* === SCROLLBAR === */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-thumb {
+  background: rgba(150, 150, 150, 0.3);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(200, 200, 200, 0.5);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .profile-section {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.8rem;
+  }
+  .profile-info p {
+    text-align: justify;
+  }
+}
+
+/* === PORTFOLIO CARD (INSIDE TOP 5 PROJECTS) === */
+.portfolio-card {
+  text-align: center;
+  border: 1px dashed rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.portfolio-card:hover {
+  background: rgba(255, 255, 255, 0.07);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 255, 200, 0.25);
+}
+
+.project-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.btn-download,
+.btn-visit {
+  display: inline-block;
+  padding: 0.6rem 1.4rem;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-download {
+  background: linear-gradient(135deg, #00ffc8, #00aaff);
+  color: #000;
+}
+
+.btn-visit {
+  background: linear-gradient(135deg, #ff69b4, #ffb6c1);
+  color: #000;
+}
+
+.btn-download:hover,
+.btn-visit:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+canvas#stars,
+.aurora-overlay {
+  pointer-events: none;
+}
+
+/* ensure the download button is clickable above all layers */
+.btn-download {
+  position: relative;
+  z-index: 1000;
+  cursor: pointer;
+}
