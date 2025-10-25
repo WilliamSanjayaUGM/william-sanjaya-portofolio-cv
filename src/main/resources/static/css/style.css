@@ -10,8 +10,9 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  overflow-x: hidden; /* keep horizontal overflow hidden, allow vertical scroll */
   position: relative;
+  scroll-behavior: smooth;
 }
 
 /* === BACKGROUND ELEMENTS === */
@@ -78,7 +79,7 @@ h1 {
   color: #eaeaea;
   font-weight: 400;
   max-width: 720px;
-  margin: 0 auto 2.5em;
+  margin: 0 auto 3.5em; /* was 2.5em → now more breathing room */
   font-style: italic;
   text-shadow: 0 0 15px rgba(255,255,255,0.1);
 }
@@ -169,4 +170,68 @@ h1 {
   }
 }
 
+/* === PAGE TRANSITION MAGIC === */
+.fade-slide-up {
+  opacity: 0;
+  transform: translateY(-60px);
+  transition: opacity 1s ease, transform 1s ease;
+}
 
+.aurora-morph {
+  filter: blur(60px) brightness(0.5);
+  transition: filter 1s ease;
+}
+
+.about-transition {
+  opacity: 0;
+  transform: translateY(80px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+  pointer-events: none;
+}
+
+.about-transition.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+@keyframes floaty {
+  0%, 100% { transform: translate(-50%, 0); }
+  50% { transform: translate(-50%, -10px); }
+}
+
+/* Keep intro centered */
+.intro-section {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Move hint below slogan */
+.scroll-hint {
+  position: absolute;
+  bottom: 5vh; /* a bit higher for balance */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.75);
+  letter-spacing: 0.5px;
+  opacity: 0.85;
+  animation: floaty 2s ease-in-out infinite, fadeInHint 1.6s ease forwards;
+  animation-delay: 0.8s;
+}
+
+/* Add this new animation for a soft reveal */
+@keyframes fadeInHint {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 20px);
+  }
+  to {
+    opacity: 0.85;
+    transform: translate(-50%, 0);
+  }
+}

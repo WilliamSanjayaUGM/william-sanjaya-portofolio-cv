@@ -10,7 +10,7 @@ import com.learn.portofolio_cv.model.Project;
 public class ProjectService {
 	public List<Project> getTopProjects() {
         return List.of(
-            new Project("OCBC HR - PDAL (Product Development And Lifecycle)",
+            new Project("OCBC HR",
                     "Add feature for access control, enhance the workflow product submission feature, and fix batch system, by using spring boot and spring state machine, and PostgreSQL Database.",
                     null),
 

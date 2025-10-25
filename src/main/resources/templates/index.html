@@ -1,71 +1,90 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>William Sanjaya — Indonesia</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>William Sanjaya — Indonesia</title>
 
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <canvas id="stars"></canvas>
-    <div class="aurora"></div>
+  <canvas id="stars"></canvas>
+  <div class="aurora"></div>
 
+  <div class="intro-section">
     <div class="content">
-        <div class="intro fade-in">
-            <h1>William Sanjaya</h1>
-			<p class="role">RDC Software Engineer @ OCBC Indonesia</p>
-            <p class="slogan"><em><strong>
-                Building future-ready systems where engineering precision meets AI collaboration and entrepreneurial creativity.
-            </strong></em></p>
-        </div>
-
-		<button class="cta-button fade-in-late" id="discoverBtn">
-		    Discover More →
-		</button>
+      <div class="intro fade-in">
+        <h1>William Sanjaya</h1>
+        <p class="role">RDC Software Engineer @ OCBC Indonesia</p>
+        <p class="slogan"><em><strong>
+          Building future-ready systems where engineering precision meets AI collaboration and entrepreneurial creativity.
+        </strong></em></p>
+		<p class="scroll-hint">↓ Scroll to Explore ↓</p>
+      </div>
     </div>
+  </div>
 
-    <script th:src="@{/js/animation.js}"></script>
-	<script>
-	document.addEventListener("DOMContentLoaded", () => {
-	  document.body.classList.add("loaded");
+  <script th:src="@{/js/animation.js}"></script>
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.body.classList.add("loaded");
 
-	  const btn = document.getElementById("discoverBtn");
-	  const aurora = document.querySelector(".aurora");
-	  const content = document.querySelector(".content");
+    const btn = document.getElementById("discoverBtn");
+    const aurora = document.querySelector(".aurora");
+    const content = document.querySelector(".content");
 
-	  btn.addEventListener("click", (e) => {
-	    e.preventDefault();
+    // Same click behaviour as before
+    if (btn) {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        triggerTransition();
+      });
+    }
 
-	    // Add subtle content fade + aurora morph
-	    content.classList.add("fade-slide-up");
-	    aurora.classList.add("aurora-morph");
+    // --- Scroll-based transition (NEW) ---
+    let scrolled = false;
+    window.addEventListener("wheel", (event) => {
+      // detect strong downward scroll
+      if (!scrolled && event.deltaY > 80) {
+        scrolled = true;
+        triggerTransition();
+      }
+    }, { passive: true });
 
-	    // Navigate after animation
-	    setTimeout(() => {
-	      window.location.href = "/about";
-	    }, 950);
-	  });
-	});
+    // Touch devices scroll gesture
+    let startY = 0;
+    window.addEventListener("touchstart", e => startY = e.touches[0].clientY);
+    window.addEventListener("touchmove", e => {
+      const endY = e.touches[0].clientY;
+      if (!scrolled && startY - endY > 80) { // swipe up
+        scrolled = true;
+        triggerTransition();
+      }
+    });
 
-	// Handle browser back-cache (smooth re-entry)
-	window.addEventListener("pageshow", (event) => {
-	  if (event.persisted) {
-	    const aurora = document.querySelector(".aurora");
-	    const content = document.querySelector(".content");
+    function triggerTransition() {
+      content.classList.add("fade-slide-up");
+      aurora.classList.add("aurora-morph");
+      setTimeout(() => {
+        window.location.href = "/about";
+      }, 950);
+    }
 
-	    content.classList.remove("fade-slide-up");
-	    aurora.classList.remove("aurora-morph");
-
-	    requestAnimationFrame(() => {
-	      content.classList.add("fade-in");
-	    });
-	  }
-	});
-	</script>
+    // Handle browser back-cache (smooth re-entry)
+    window.addEventListener("pageshow", (event) => {
+      if (event.persisted) {
+        content.classList.remove("fade-slide-up");
+        aurora.classList.remove("aurora-morph");
+        requestAnimationFrame(() => {
+          content.classList.add("fade-in");
+        });
+      }
+    });
+  });
+  </script>
 </body>
 </html>

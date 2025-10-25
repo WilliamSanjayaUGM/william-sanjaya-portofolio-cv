@@ -34,15 +34,21 @@
 	</section>
 
     <!-- Employment History -->
-	<section>
+	<section class="employment-section">
 	  <h2>Employment History</h2>
 
-	  <th:block th:each="job : ${jobs}">
-	  	<div class="job-entry">
-	    	<h3 th:text="${job.period} + ' • ' + ${job.title} + ' — ' + ${job.company}"></h3>
-	        <p th:text="${job.description}"></p>
-	  	</div>
-	  </th:block>
+	  <div class="timeline">
+	    <th:block th:each="job, iterStat : ${jobs}">
+	      <div class="timeline-item" th:classappend="${iterStat.index % 2 == 0} ? ' left' : ' right'">
+	        <div class="timeline-icon"></div>
+	        <div class="timeline-content">
+	          <h3 th:text="${job.title} + ' — ' + ${job.company}"></h3>
+	          <span class="timeline-period" th:text="${job.period}"></span>
+	          <p th:text="${job.description}"></p>
+	        </div>
+	      </div>
+	    </th:block>
+	  </div>
 	</section>
 
     <!-- Top 5 Projects -->

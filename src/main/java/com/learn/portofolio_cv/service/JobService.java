@@ -17,7 +17,8 @@ public class JobService {
             
             new Job("Aug 2024 – Jul 2025", "Senior Application Developer", "PT. Surya Madistrindo",
                     "Participate in system analysis, technical design, and estimation for internal enterprise projects. "
-                    + "Developed shared modules and automated CI/CD deployments using OpenShift & ArgoCD. "
+                    + "Developed shared modules, optimize codes and queries, and also automated CI/CD deployments using OpenShift & ArgoCD. "
+                    + "Built ETL workflows and SSRS reports to support business intelligence initiatives."
                     + "Mentored developers and coordinated UAT across cross-functional teams."),
             
             new Job("Apr 2021 – Aug 2024", "Application Developer", "PT. Surya Madistrindo",
