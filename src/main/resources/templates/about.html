@@ -9,7 +9,14 @@
   <link rel="stylesheet" href="css/about.css">
 
 </head>
-
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Delay a little to sync with transition timing from index.html
+    setTimeout(() => {
+      document.body.classList.add("page-loaded");
+    }, 100);
+  });
+</script>
 <body>
   <!-- Background Animation -->
   <canvas id="stars"></canvas>
@@ -108,5 +115,21 @@
   </div>
 
   <script src="/js/animation.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.body.classList.add("page-loaded");
+
+      const sections = document.querySelectorAll("section");
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      }, { threshold: 0.2 });
+
+      sections.forEach(sec => observer.observe(sec));
+    });
+  </script>
 </body>
 </html>

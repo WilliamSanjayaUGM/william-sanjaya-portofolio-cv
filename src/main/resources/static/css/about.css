@@ -520,3 +520,24 @@ canvas#stars,
   }
 }
 
+/* === PAGE ENTRY FADE-IN === */
+body {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1.4s ease-out, transform 1.4s ease-out; /* ← put it here */
+}
+
+body.page-loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+section {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
