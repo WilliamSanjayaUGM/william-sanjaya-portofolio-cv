@@ -504,9 +504,10 @@ canvas#stars,
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
   .timeline-item {
-    width: 100%;
-    margin: 2rem 0;
-    padding-left: 0; /* remove extra padding */
+    width: calc(100% - 2rem); /* keeps 1rem margin on each side */
+    margin: 2rem auto;         /* auto centers the card */
+    padding-left: 1rem;        /* optional extra padding */
+    padding-right: 1rem;
   }
 
   .timeline-icon {
@@ -538,7 +539,13 @@ section.visible {
 }
 
 body.page-exit {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+body.page-exit.active {
   opacity: 0;
   transform: translateY(60px);
-  transition: opacity 0.8s ease-in, transform 0.8s ease-in;
+  filter: blur(6px);
 }

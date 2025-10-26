@@ -131,38 +131,40 @@
       sections.forEach(sec => observer.observe(sec));
     });
   </script>
-	<script>
-	document.addEventListener("DOMContentLoaded", () => {
-	  const scrollContainer = document.querySelector(".scroll-container");
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const scrollContainer = document.querySelector(".scroll-container");
 
-	  // check if we came from index
-	  const fromIndex = sessionStorage.getItem("fromIndex") === "true";
-	  if (!fromIndex) return; // if user opened about.html directly, do nothing
+    // Only apply transition if we came from index
+    const fromIndex = sessionStorage.getItem("fromIndex") === "true";
+    if (!fromIndex) return;
 
-	  // clear flag so reload on about doesn’t redirect again
-	  sessionStorage.removeItem("fromIndex");
+    sessionStorage.removeItem("fromIndex");
 
-	  // push a new state so that Back triggers popstate
-	  history.pushState({ page: "about" }, "", window.location.href);
+    // Mark history so Back triggers popstate
+    history.pushState({ page: "about" }, "", window.location.href);
 
-	  // when user presses Back
-	  window.addEventListener("popstate", () => {
-	    document.body.classList.add("page-exit");
-	    setTimeout(() => {
-	      window.location.href = "/";
-	    }, 900);
-	  });
+    // graceful exit function
+    function goBackToIndex() {
+      if (document.body.classList.contains("page-exit-active")) return; // prevent double trigger
+      document.body.classList.add("page-exit", "active");
+      setTimeout(() => {
+        // mark that we’re going *back* (so index shows reenter anim)
+        sessionStorage.setItem("fromAbout", "true");
+        window.location.href = "/";
+      }, 900);
+    }
 
-	  // optional: also handle scroll up to top
-	  scrollContainer.addEventListener("scroll", () => {
-	    if (scrollContainer.scrollTop <= 0) {
-	      document.body.classList.add("page-exit");
-	      setTimeout(() => {
-	        window.location.href = "/";
-	      }, 900);
-	    }
-	  });
-	});
-	</script>
+    // Browser back button
+    window.addEventListener("popstate", goBackToIndex);
+
+    // Optional: scroll-up-to-top gesture
+    scrollContainer.addEventListener("scroll", () => {
+      if (scrollContainer.scrollTop <= 0) {
+        goBackToIndex();
+      }
+    });
+  });
+  </script>
 </body>
 </html>
