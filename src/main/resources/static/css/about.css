@@ -503,19 +503,14 @@ canvas#stars,
 
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
-  .timeline::before {
-    left: 25px;
-  }
-
   .timeline-item {
-    width: calc(100% - 30px);
-    margin-left: 40px;
-    text-align: left;
-    padding-left: 2.5rem;
+    width: 100%;
+    margin: 2rem 0;
+    padding-left: 0; /* remove extra padding */
   }
 
   .timeline-icon {
-    left: 25px;
+    left: 50%; /* keep it centered */
     transform: translate(-50%, -50%);
   }
 }
