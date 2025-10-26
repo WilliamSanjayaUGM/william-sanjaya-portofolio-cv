@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/about.css">
+
+</head>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Delay a little to sync with transition timing from index.html
+    setTimeout(() => {
+      document.body.classList.add("page-loaded");
+    }, 100);
+  });
+</script>
+<body>
+  <!-- Background Animation -->
+  <canvas id="stars"></canvas>
+  <div class="aurora-overlay"></div>
+
+  <!-- Scrollable Content -->
+  <div class="scroll-container">
+	
+	<!-- PROFILE SECTION + SKILLS SECTION -->
+	<section class="profile-section">
+	  <img src="images/profile.png" alt="Profile Picture" class="profile-photo">
+	  <div class="profile-info">
+	    <h1>William <span>Sanjaya</span></h1>
+	    <p>
+			I’m an Indonesian Software Engineer with strong expertise in Java Spring Boot and Node.js, experienced in both legacy systems and modern cloud architectures. 
+			Skilled in full stack and building microservices with robust scalability and fault tolerance by leveraging Kafka, RabbitMQ, and Redis for high-performance, event-driven architectures.
+			My toolkit includes Oracle, PostgreSQL, and NoSQL databases such as MongoDB, Elasticsearch, and redis, with practical experience in ETL development and SSRS reporting for data integration and enterprise reporting.
+			Adept in leveraging the ELK Stack for observability and log analytics, and passionate about integrating AI to enhance code quality, testing coverage, and development efficiency.
+			Fueled by coffee, I find joy in running, working out, playing guitar, and reading.
+	    </p>
+	  </div>
+	</section>
+
+    <!-- Employment History -->
+	<section class="employment-section">
+	  <h2>Employment History</h2>
+
+	  <div class="timeline">
+	    
+	      <div class="timeline-item  left">
+	        <div class="timeline-icon"></div>
+	        <div class="timeline-content">
+	          <h3>RDC Software Engineer — OCBC Indonesia</h3>
+	          <span class="timeline-period">Aug 2025 – Present</span>
+	          <p>Deliver global backend microservices with regional teams (China, Singapore, Malaysia, etc.). Enhance code quality and test coverage via SonarQube, Qodoo, and Copilot. Implement SOLID, OWASP-compliant code, asynchronous processing with backpressure, and centralized log tracing through ELK Stack.</p>
+	        </div>
+	      </div>
+	    
+	      <div class="timeline-item  right">
+	        <div class="timeline-icon"></div>
+	        <div class="timeline-content">
+	          <h3>Senior Application Developer — PT. Surya Madistrindo</h3>
+	          <span class="timeline-period">Aug 2024 – Jul 2025</span>
+	          <p>Participate in system analysis, technical design, and estimation for internal enterprise projects. Developed shared modules, optimize codes and queries, and also automated CI/CD deployments using OpenShift &amp; ArgoCD. Built ETL workflows and SSRS reports to support business intelligence initiatives.Mentored developers and coordinated UAT across cross-functional teams.</p>
+	        </div>
+	      </div>
+	    
+	      <div class="timeline-item  left">
+	        <div class="timeline-icon"></div>
+	        <div class="timeline-content">
+	          <h3>Application Developer — PT. Surya Madistrindo</h3>
+	          <span class="timeline-period">Apr 2021 – Aug 2024</span>
+	          <p>Built internal enterprise apps with Spring Boot &amp; JavaScript, and optimized performance through PL/SQL tuning. Modernized legacy Weblogic, Java J2EE systems to Spring Boot &amp; Angular or ZKoss framework on OpenShift, ensuring stable production delivery and post-launch support.</p>
+	        </div>
+	      </div>
+	    
+	      <div class="timeline-item  right">
+	        <div class="timeline-icon"></div>
+	        <div class="timeline-content">
+	          <h3>Mobile Developer — PT. Yoshugi Putra Mandiri</h3>
+	          <span class="timeline-period">Feb 2020 – Nov 2020</span>
+	          <p>Developed chatbot and e-commerce Android prototypes using React Native (JS).</p>
+	        </div>
+	      </div>
+	    
+	  </div>
+	</section>
+
+    <!-- Top 5 Projects -->
+    <section>
+      <h2>Top 5 Projects</h2>
+      <div class="project-grid">
+		
+			<div class="project-card">
+		    	<h4>OCBC HR</h4>
+		        <p>Add feature for access control, enhance the workflow product submission feature, and fix batch system, by using spring boot and spring state machine, and PostgreSQL Database.</p>
+		        
+		        
+			</div>
+		
+			<div class="project-card">
+		    	<h4>Multicoverage Management System</h4>
+		        <p>Doing full stack web development and code review, and also deliver CR Android mobile salesmanship app, to manage incoming and outgoing cigarette and merchandise stocks.</p>
+		        
+		        
+			</div>
+		
+			<div class="project-card">
+		    	<h4>Supervisory Retail</h4>
+		        <p>Developed a full-stack application using Java Spring Boot and ZKoss, implementing PL/SQL-based data synchronization to support supervisors in monitoring and evaluating sales performance.</p>
+		        
+		        
+			</div>
+		
+			<div class="project-card">
+		    	<h4>PPCL (Application for Credit Limit Change)</h4>
+		        <p>Developed an end-to-end credit management and web cashier system using Java Spring Boot with PL/SQL-based data synchronization, integrated with Angular and ZKoss UI, and provided backend services for the Salesmanship mobile app.</p>
+		        
+		        
+			</div>
+		
+			<div class="project-card">
+		    	<h4>E-Budgeting</h4>
+		        <p>Developed E-Budgeting Web Application. Working on workflow approval system and also CAPEX &amp; OPEX worksheet.</p>
+		        
+		        
+			</div>
+		
+		
+		<!-- Portfolio Download Card -->
+		<div class="project-card portfolio-card">
+		  <h4>See All Projects</h4>
+		  <p>
+		    Explore my full project collection, including any Spring Boot projects, Node.JS and more.
+		  </p>
+		  <div class="project-links">
+			<a href="/download/project-pdf" class="btn-download">
+			  Download Full Project Lists
+			</a>
+		  </div>
+		</div>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section>
+      <h2>Education</h2>
+	  
+	  	<p>
+			<strong>Electronics &amp; Instrumentation</strong> —
+	        <span>University of Gadjah Mada</span>
+	    </p>
+	    <ul>
+	        <li>Graduated with honors (GPA 3.03/4.00)</li>
+	    </ul>
+	  
+    </section>
+
+    <!-- Contact -->
+    <section>
+      <h2>Contact</h2>
+      <p>Feel free to reach out for collaboration or tech discussions:</p>
+      <div class="contact-links">
+        <a href="mailto:williams.gouw@gmail.com">📧 williams.gouw@gmail.com</a>
+        <a href="https://github.com/williamSanjaya-UGM" target="_blank">💻 GitHub</a>
+        <a href="https://www.linkedin.com/in/william-sanjaya-345343197/" target="_blank">🔗 LinkedIn</a>
+      </div>
+    </section>
+  </div>
+
+  <script src="/js/animation.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.body.classList.add("page-loaded");
+
+      const sections = document.querySelectorAll("section");
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      }, { threshold: 0.2 });
+
+      sections.forEach(sec => observer.observe(sec));
+    });
+  </script>
+	<script>
+	document.addEventListener("DOMContentLoaded", () => {
+	  const scrollContainer = document.querySelector(".scroll-container");
+
+	  // check if we came from index
+	  const fromIndex = sessionStorage.getItem("fromIndex") === "true";
+	  if (!fromIndex) return; // if user opened about.html directly, do nothing
+
+	  // clear flag so reload on about doesn’t redirect again
+	  sessionStorage.removeItem("fromIndex");
+
+	  // push a new state so that Back triggers popstate
+	  history.pushState({ page: "about" }, "", window.location.href);
+
+	  // when user presses Back
+	  window.addEventListener("popstate", () => {
+	    document.body.classList.add("page-exit");
+	    setTimeout(() => {
+	      window.location.href = "/";
+	    }, 900);
+	  });
+
+	  // optional: also handle scroll up to top
+	  scrollContainer.addEventListener("scroll", () => {
+	    if (scrollContainer.scrollTop <= 0) {
+	      document.body.classList.add("page-exit");
+	      setTimeout(() => {
+	        window.location.href = "/";
+	      }, 900);
+	    }
+	  });
+	});
+	</script>
+</body>
+</html>
