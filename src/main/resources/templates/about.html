@@ -131,5 +131,38 @@
       sections.forEach(sec => observer.observe(sec));
     });
   </script>
+	<script>
+	document.addEventListener("DOMContentLoaded", () => {
+	  const scrollContainer = document.querySelector(".scroll-container");
+
+	  // check if we came from index
+	  const fromIndex = sessionStorage.getItem("fromIndex") === "true";
+	  if (!fromIndex) return; // if user opened about.html directly, do nothing
+
+	  // clear flag so reload on about doesn’t redirect again
+	  sessionStorage.removeItem("fromIndex");
+
+	  // push a new state so that Back triggers popstate
+	  history.pushState({ page: "about" }, "", window.location.href);
+
+	  // when user presses Back
+	  window.addEventListener("popstate", () => {
+	    document.body.classList.add("page-exit");
+	    setTimeout(() => {
+	      window.location.href = "/";
+	    }, 900);
+	  });
+
+	  // optional: also handle scroll up to top
+	  scrollContainer.addEventListener("scroll", () => {
+	    if (scrollContainer.scrollTop <= 0) {
+	      document.body.classList.add("page-exit");
+	      setTimeout(() => {
+	        window.location.href = "/";
+	      }, 900);
+	    }
+	  });
+	});
+	</script>
 </body>
 </html>

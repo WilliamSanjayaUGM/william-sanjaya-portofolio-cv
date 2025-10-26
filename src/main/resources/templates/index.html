@@ -31,7 +31,14 @@
   <script th:src="@{/js/animation.js}"></script>
   <script>
   document.addEventListener("DOMContentLoaded", () => {
-    document.body.classList.add("loaded");
+	if (document.referrer.includes("/about")) {
+	    document.body.classList.add("reenter");
+	    requestAnimationFrame(() => {
+	      document.body.classList.add("loaded");
+	    });
+	  } else {
+	    document.body.classList.add("loaded");
+	  }
 
     const btn = document.getElementById("discoverBtn");
     const aurora = document.querySelector(".aurora");
@@ -65,14 +72,18 @@
         triggerTransition();
       }
     });
+	
+	function triggerTransition() {
+	  // mark that we came from index before redirecting
+	  sessionStorage.setItem("fromIndex", "true");
 
-    function triggerTransition() {
-      content.classList.add("fade-slide-up");
-      aurora.classList.add("aurora-morph");
-      setTimeout(() => {
-        window.location.href = "/about";
-      }, 950);
-    }
+	  content.classList.add("fade-slide-up");
+	  aurora.classList.add("aurora-morph");
+
+	  setTimeout(() => {
+	    window.location.href = "/about"; // go to about.html
+	  }, 950);
+	}
 
     // Handle browser back-cache (smooth re-entry)
     window.addEventListener("pageshow", (event) => {
