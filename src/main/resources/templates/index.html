@@ -92,13 +92,15 @@
     });
 
     // === PARALLAX ===
-    document.addEventListener("mousemove", (e) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 20;
-      const y = (e.clientY / window.innerHeight - 0.5) * 20;
-      aurora.style.transform = `translate(${x * -0.4}px, ${y * -0.4}px)`;
-      const sat = document.querySelector('.satellite');
-      if (sat) sat.style.transform = `translate(${x * 0.6}px, ${y * 0.6}px) rotate(${Date.now() / 100}s)`;
-    });
+	let lastMove = 0;
+	document.addEventListener("mousemove", (e) => {
+	  const now = performance.now();
+	  if (now - lastMove < 50) return; // limit to ~20fps
+	  lastMove = now;
+	  const x = (e.clientX / window.innerWidth - 0.5) * 20;
+	  const y = (e.clientY / window.innerHeight - 0.5) * 20;
+	  aurora.style.transform = `translate(${x * -0.4}px, ${y * -0.4}px)`;
+	});
   });
   </script>
 
@@ -109,7 +111,7 @@
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
-  const stars = Array.from({ length: 200 }, () => ({
+  const stars = Array.from({ length: 100 }, () => ({
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
     r: Math.random() * 1.2,
@@ -166,7 +168,9 @@
   }
 
   function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.globalAlpha = 0.9; // keep last frame trail
+    ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
     drawStars();
     drawShootingStars();
     requestAnimationFrame(animate);

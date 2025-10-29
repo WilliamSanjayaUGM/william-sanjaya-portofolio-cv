@@ -31,10 +31,12 @@ canvas#stars {
   background: radial-gradient(circle at 50% 50%, rgba(0,255,255,0.25), transparent 60%),
               radial-gradient(circle at 70% 80%, rgba(0,128,255,0.25), transparent 60%),
               radial-gradient(circle at 30% 20%, rgba(255,0,255,0.25), transparent 60%);
-  filter: blur(100px);
-  animation: auroraShift 15s ease-in-out infinite alternate;
-  z-index: 1;
+  filter: blur(60px);
   opacity: 0.75;
+  z-index: 1;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  animation: auroraShift 15s ease-in-out infinite alternate;
 }
 
 @keyframes auroraShift {
@@ -58,25 +60,23 @@ canvas#stars {
   width: 100%;
   height: 100%;
   background: radial-gradient(
-      circle at 25% 75%,
-      rgba(255, 255, 255, 0.01),
-      transparent 90%
+      circle at 25% 75%, rgba(255,255,255,0.01), transparent 90%
     ),
     radial-gradient(
-      circle at 75% 25%,
-      rgba(255, 255, 255, 0.008),
-      transparent 85%
+      circle at 75% 25%, rgba(255,255,255,0.008), transparent 85%
     );
-  filter: blur(100px) brightness(1.03);
-  animation: mistDrift 160s linear infinite alternate;
-  opacity: 0.18;
+  filter: blur(80px) brightness(1.03);
+  opacity: 0.12;
   z-index: 0;
+  animation: mistDrift 160s linear infinite alternate;
+  will-change: transform, opacity;
+  transform: translateZ(0);
 }
 
 @keyframes mistDrift {
-  0% { transform: translateX(-60px) translateY(0); opacity: 0.15; }
-  50% { transform: translateX(60px) translateY(-30px); opacity: 0.2; }
-  100% { transform: translateX(-40px) translateY(-50px); opacity: 0.15; }
+  0% { transform: translate3d(-60px, 0, 0); opacity: 0.15; }
+  50% { transform: translate3d(60px, -30px, 0); opacity: 0.2; }
+  100% { transform: translate3d(-40px, -50px, 0); opacity: 0.15; }
 }
 
 /* === SATELLITE ANIMATION === */
@@ -89,9 +89,11 @@ canvas#stars {
   background: url('/images/satellite.svg') no-repeat center / contain;
   opacity: 0.8;
   transform-origin: -200px 200px;
-  animation: orbit 25s linear infinite;
-  pointer-events: none;
   z-index: 3;
+  pointer-events: none;
+  will-change: transform;
+  transform: translateZ(0);
+  animation: orbit 25s linear infinite;
 }
 
 @keyframes orbit {
@@ -104,13 +106,29 @@ canvas#stars {
 }
 
 /* === CONTENT === */
+.intro-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
 .content {
   position: relative;
   text-align: center;
-  z-index: 2;
   width: 90%;
   max-width: 900px;
+  margin: 0 auto;
   animation: fadeIn 2.2s ease forwards;
+}
+
+.intro-section h1,
+.intro-section p {
+  margin-top: 0;
+  margin-bottom: 0.8em;
 }
 
 /* === HEADINGS === */
@@ -186,13 +204,7 @@ h1:hover {
 
 /* === SCROLL HINT === */
 .scroll-hint {
-  position: relative;
-  margin-top: 4em;
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.75);
-  letter-spacing: 0.5px;
-  opacity: 0;
-  animation: fadeInHint 1.2s ease forwards, floatyHint 2.5s ease-in-out 1.2s infinite;
+  margin-top: 3em; /* slightly smaller margin so it's closer to text */
 }
 
 @keyframes floatyHint {
