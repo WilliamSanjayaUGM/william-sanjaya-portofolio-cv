@@ -10,7 +10,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow-x: hidden; /* keep horizontal overflow hidden, allow vertical scroll */
+  overflow-x: hidden;
   position: relative;
   scroll-behavior: smooth;
 }
@@ -23,6 +23,7 @@ canvas#stars {
   z-index: 0;
 }
 
+/* === AURORA VIBE (from first version — brighter, more alive) === */
 .aurora {
   position: absolute;
   width: 100%;
@@ -36,7 +37,73 @@ canvas#stars {
   opacity: 0.75;
 }
 
-/* === CONTENT LAYOUT === */
+@keyframes auroraShift {
+  0% {
+    background-position: 0% 50%;
+    filter: hue-rotate(0deg) blur(100px);
+  }
+  50% {
+    background-position: 50% 100%;
+    filter: hue-rotate(90deg) blur(110px);
+  }
+  100% {
+    background-position: 100% 50%;
+    filter: hue-rotate(180deg) blur(100px);
+  }
+}
+
+/* === MIST LAYER (soft cinematic glow) === */
+.mist {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+      circle at 25% 75%,
+      rgba(255, 255, 255, 0.01),
+      transparent 90%
+    ),
+    radial-gradient(
+      circle at 75% 25%,
+      rgba(255, 255, 255, 0.008),
+      transparent 85%
+    );
+  filter: blur(100px) brightness(1.03);
+  animation: mistDrift 160s linear infinite alternate;
+  opacity: 0.18;
+  z-index: 0;
+}
+
+@keyframes mistDrift {
+  0% { transform: translateX(-60px) translateY(0); opacity: 0.15; }
+  50% { transform: translateX(60px) translateY(-30px); opacity: 0.2; }
+  100% { transform: translateX(-40px) translateY(-50px); opacity: 0.15; }
+}
+
+/* === SATELLITE ANIMATION === */
+.satellite {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  background: url('/images/satellite.svg') no-repeat center / contain;
+  opacity: 0.8;
+  transform-origin: -200px 200px;
+  animation: orbit 25s linear infinite;
+  pointer-events: none;
+  z-index: 3;
+}
+
+@keyframes orbit {
+  0% {
+    transform: rotate(0deg) translateX(200px) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(200px) rotate(-360deg);
+  }
+}
+
+/* === CONTENT === */
 .content {
   position: relative;
   text-align: center;
@@ -56,20 +123,26 @@ h1 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 0 0 25px rgba(255, 215, 160, 0.15);
+  transition: text-shadow 0.8s ease-in-out;
 }
 
-/* === Role Line Styling === */
+h1:hover {
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.6),
+               0 0 40px rgba(100, 180, 255, 0.4);
+}
+
+/* === ROLE LINE === */
 .role {
-    font-size: 1.1em;
-    font-weight: 400;
-    color: #ddd;
-    margin-top: 0.5em;
-    margin-bottom: 1.5em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.4em;
-    letter-spacing: 0.3px;
+  font-size: 1.1em;
+  font-weight: 400;
+  color: #ddd;
+  margin-top: 0.5em;
+  margin-bottom: 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4em;
+  letter-spacing: 0.3px;
 }
 
 /* === SLOGAN === */
@@ -79,7 +152,7 @@ h1 {
   color: #eaeaea;
   font-weight: 400;
   max-width: 720px;
-  margin: 0 auto 3.5em; /* was 2.5em → now more breathing room */
+  margin: 0 auto 3.5em;
   font-style: italic;
   text-shadow: 0 0 15px rgba(255,255,255,0.1);
 }
@@ -106,24 +179,30 @@ h1 {
 }
 
 /* === ANIMATIONS === */
-@keyframes auroraShift {
-  0% {
-    background-position: 0% 50%;
-    filter: hue-rotate(0deg) blur(100px);
-  }
-  50% {
-    background-position: 50% 100%;
-    filter: hue-rotate(90deg) blur(110px);
-  }
-  100% {
-    background-position: 100% 50%;
-    filter: hue-rotate(180deg) blur(100px);
-  }
-}
-
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(40px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* === SCROLL HINT === */
+.scroll-hint {
+  position: relative;
+  margin-top: 4em;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.75);
+  letter-spacing: 0.5px;
+  opacity: 0;
+  animation: fadeInHint 1.2s ease forwards, floatyHint 2.5s ease-in-out 1.2s infinite;
+}
+
+@keyframes floatyHint {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes fadeInHint {
+  from { opacity: 0; }
+  to { opacity: 0.85; }
 }
 
 /* === RESPONSIVE === */
@@ -140,7 +219,7 @@ h1 {
   }
 }
 
-/* === SMOOTH PAGE TRANSITION === */
+/* === PAGE TRANSITIONS === */
 .fade-slide-up {
   opacity: 0;
   transform: translateY(-40px) scale(1.05);
@@ -168,75 +247,6 @@ h1 {
     opacity: 0;
     transform: scale(1.25);
   }
-}
-
-body.page-loaded {
-  animation: pageFadeIn 0.7s ease-out forwards;
-}
-
-@keyframes pageFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(40px) scale(0.97);
-    filter: blur(5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
-  }
-}
-/* === PAGE TRANSITION MAGIC === */
-
-.about-transition {
-  opacity: 0;
-  transform: translateY(80px);
-  transition: opacity 1.2s ease, transform 1.2s ease;
-  pointer-events: none;
-}
-
-.about-transition.visible {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
-@keyframes floaty {
-  0%, 100% { transform: translate(-50%, 0); }
-  50% { transform: translate(-50%, -10px); }
-}
-
-/* Keep intro centered */
-.intro-section {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-/* Move hint below slogan */
-.scroll-hint {
-  position: relative; /* no longer absolute */
-  margin-top: 4em; /* elegant breathing room below the slogan */
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.75);
-  letter-spacing: 0.5px;
-  opacity: 0;
-  animation: fadeInHint 1.2s ease forwards, floatyHint 2.5s ease-in-out 1.2s infinite;
-}
-
-/* Smooth floating animation (no transform conflicts) */
-@keyframes floatyHint {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-/* Add this new animation for a soft reveal */
-@keyframes fadeInHint {
-  from { opacity: 0; }
-  to { opacity: 0.85; }
 }
 
 body.reenter {
